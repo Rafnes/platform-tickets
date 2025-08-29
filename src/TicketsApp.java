@@ -55,7 +55,7 @@ class TicketService {
         }
         String ticketsArray = json.substring(start + 1, end);
 
-        // Выделяем отдельные JSON-объекты билетов из массива
+
         List<String> ticketJsons = splitJsonObjects(ticketsArray);
 
         List<Ticket> tickets = new ArrayList<>();
