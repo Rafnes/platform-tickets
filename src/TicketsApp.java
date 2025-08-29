@@ -8,14 +8,14 @@ import java.util.*;
 public class TicketsApp {
     public static void main(String[] args) {
         if (args.length < 1) {
-            System.out.println("Некорректные параметры запуска. Корректно: java <путь к файлу TicketsApp> <путь к файлу tickets.json>");
+            System.out.println("РќРµРєРѕСЂСЂРµРєС‚РЅС‹Рµ РїР°СЂР°РјРµС‚СЂС‹ Р·Р°РїСѓСЃРєР°. РљРѕСЂСЂРµРєС‚РЅРѕ: java <РїСѓС‚СЊ Рє С„Р°Р№Р»Сѓ TicketsApp> <РїСѓС‚СЊ Рє С„Р°Р№Р»Сѓ tickets.json>");
             return;
         }
         TicketService ticketService = new TicketService();
 
         String json = ticketService.processFile(args[0]);
         if (json == null) {
-            System.out.println("Ошибка чтения файла");
+            System.out.println("РћС€РёР±РєР° С‡С‚РµРЅРёСЏ С„Р°Р№Р»Р°");
             return;
         }
 
@@ -35,7 +35,7 @@ class TicketService {
                 stringBuilder.append(line.trim());
             }
         } catch (Exception ex) {
-            System.out.println("Ошибка при чтении файла: " + ex.getMessage());
+            System.out.println("РћС€РёР±РєР° РїСЂРё С‡С‚РµРЅРёРё С„Р°Р№Р»Р°: " + ex.getMessage());
             return null;
         }
         return stringBuilder.toString();
@@ -44,13 +44,13 @@ class TicketService {
     public List<Ticket> processJson(String json) {
         int start = json.indexOf("\"tickets\"");
         if (start < 0) {
-            System.out.println("Поле tickets не найдено");
+            System.out.println("РџРѕР»Рµ tickets РЅРµ РЅР°Р№РґРµРЅРѕ");
             return Collections.emptyList();
         }
         start = json.indexOf("[", start);
         int end = json.indexOf(']', start);
         if (start < 0 || end < 0) {
-            System.out.println("Массив tickets не найден");
+            System.out.println("РњР°СЃСЃРёРІ tickets РЅРµ РЅР°Р№РґРµРЅ");
             return Collections.emptyList();
         }
         String ticketsArray = json.substring(start + 1, end);
@@ -75,12 +75,12 @@ class TicketService {
                     );
                     tickets.add(ticket);
                 } catch (Exception e) {
-                    System.out.println("Ошибка парсинга билета: " + e.getMessage());
+                    System.out.println("РћС€РёР±РєР° РїР°СЂСЃРёРЅРіР° Р±РёР»РµС‚Р°: " + e.getMessage());
                 }
             }
         }
         if (tickets.isEmpty()) {
-            System.out.println("Билеты из Владивостока в Тель-Авив не найдены");
+            System.out.println("Р‘РёР»РµС‚С‹ РёР· Р’Р»Р°РґРёРІРѕСЃС‚РѕРєР° РІ РўРµР»СЊ-РђРІРёРІ РЅРµ РЅР°Р№РґРµРЅС‹");
         }
         return tickets;
     }
@@ -177,11 +177,11 @@ class TicketService {
                 }
             }
         }
-        System.out.println("Минимальное время перелета между Владивостоком и Тель-Авивом:");
+        System.out.println("РњРёРЅРёРјР°Р»СЊРЅРѕРµ РІСЂРµРјСЏ РїРµСЂРµР»РµС‚Р° РјРµР¶РґСѓ Р’Р»Р°РґРёРІРѕСЃС‚РѕРєРѕРј Рё РўРµР»СЊ-РђРІРёРІРѕРј:");
         for (Map.Entry<String, Long> entry : minDurations.entrySet()) {
             long hrs = entry.getValue() / 60;
             long mins = entry.getValue() % 60;
-            System.out.printf("Перевозчик %s: %d часов %d минут\n", entry.getKey(), hrs, mins);
+            System.out.printf("РџРµСЂРµРІРѕР·С‡РёРє %s: %d С‡Р°СЃРѕРІ %d РјРёРЅСѓС‚\n", entry.getKey(), hrs, mins);
         }
     }
 
@@ -206,9 +206,9 @@ class TicketService {
         }
 
         double diff = avgPrice - medianPrice;
-        System.out.printf("Средняя цена: %.2f\n", avgPrice);
-        System.out.printf("Медиана цен: %.2f\n", medianPrice);
-        System.out.printf("Разница между средней ценой и медианой: %.2f\n", diff);
+        System.out.printf("РЎСЂРµРґРЅСЏСЏ С†РµРЅР°: %.2f\n", avgPrice);
+        System.out.printf("РњРµРґРёР°РЅР° С†РµРЅ: %.2f\n", medianPrice);
+        System.out.printf("Р Р°Р·РЅРёС†Р° РјРµР¶РґСѓ СЃСЂРµРґРЅРµР№ С†РµРЅРѕР№ Рё РјРµРґРёР°РЅРѕР№: %.2f\n", diff);
     }
 }
 
@@ -227,7 +227,7 @@ class Ticket {
             this.departure = dateFormat.parse(departureDate + " " + departureTime);
             this.arrival = dateFormat.parse(arrivalDate + " " + arrivalTime);
         } catch (ParseException exception) {
-            System.out.println("Не удалось прочитать время и дату: " + exception.getMessage());
+            System.out.println("РќРµ СѓРґР°Р»РѕСЃСЊ РїСЂРѕС‡РёС‚Р°С‚СЊ РІСЂРµРјСЏ Рё РґР°С‚Сѓ: " + exception.getMessage());
         }
         this.origin = origin;
         this.destination = destination;
